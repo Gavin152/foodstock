@@ -3,26 +3,22 @@ package com.nxdev.foodstock.dish;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "dish")
+@Table(name = "Dish")
 public class Dish {
     public Dish() {}
 
-    public Dish(Integer id, String name, Enum<DishCategory> category, Float price) {
-        this.id = id;
+    public Dish(String name, DishCategory category, Float price, Integer stock) {
         this.name = name;
         this.category = category;
         this.price = price;
+        this.stock = stock;
     }
 
-    public Dish(String name, Enum<DishCategory> category, Float price) {
+    public Dish(String name, DishCategory category, Float price) {
         this.name = name;
         this.category = category;
         this.price = price;
-    }
-
-    public Dish(String name, Float price) {
-        this.name = name;
-        this.price = price;
+        this.stock = 0;
     }
 
     @Id
@@ -33,10 +29,13 @@ public class Dish {
     private String name;
 
     @Column
-    private Enum<DishCategory> category;
+    private DishCategory category;
 
     @Column
     private Float price;
+
+    @Column
+    private Integer stock;
 
     public Integer getId() {
         return id;
@@ -54,6 +53,10 @@ public class Dish {
         return price;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -62,12 +65,16 @@ public class Dish {
         this.name = name;
     }
 
-    public void setCategory(Enum<DishCategory> category) {
+    public void setCategory(DishCategory category) {
         this.category = category;
     }
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     @Override
@@ -77,6 +84,7 @@ public class Dish {
                 ", name='" + name + '\'' +
                 ", category=" + category +
                 ", price=" + price +
+                ", stock=" + stock +
                 '}';
     }
 }
